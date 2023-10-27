@@ -15,6 +15,7 @@ import {
   TextNode,
 } from "lexical";
 import {
+  RefObject,
   MutableRefObject,
   ReactPortal,
   useCallback,
@@ -46,6 +47,7 @@ type UseMenuAnchorRefOptions = {
   setResolution: (r: MenuResolution | null) => void;
   className?: string;
   menuVisible?: boolean;
+  containerRef?: RefObject<HTMLElement>;
 };
 
 export class MenuOption {
@@ -519,7 +521,7 @@ export function Menu<TOption extends MenuOption>({
 export function useMenuAnchorRef(
   opt: UseMenuAnchorRefOptions,
 ): MutableRefObject<HTMLElement> {
-  const { resolution, setResolution, className, menuVisible } = opt;
+  const { resolution, setResolution, className, menuVisible, containerRef } = opt;
   const [editor] = useLexicalComposerContext();
   const anchorElementRef = useRef<HTMLElement>(document.createElement("div"));
   const positionMenu = useCallback(() => {
@@ -566,12 +568,12 @@ export function useMenuAnchorRef(
         containerDiv.setAttribute("role", "listbox");
         containerDiv.style.display = "block";
         containerDiv.style.position = "absolute";
-        document.body.append(containerDiv);
+        (containerRef?.current || document.body).append(containerDiv);
       }
       anchorElementRef.current = containerDiv;
       rootElement.setAttribute("aria-controls", "typeahead-menu");
     }
-  }, [editor, resolution, className]);
+  }, [editor, resolution, className, containerRef]);
 
   useEffect(() => {
     const rootElement = editor.getRootElement();

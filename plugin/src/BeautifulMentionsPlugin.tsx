@@ -132,6 +132,7 @@ export function BeautifulMentionsPlugin(props: BeautifulMentionsPluginProps) {
     onMenuOpen,
     onMenuClose,
     punctuation = DEFAULT_PUNCTUATION,
+    containerRef,
   } = props;
 
   const justSelectedAnOption = useRef(false);
@@ -575,6 +576,7 @@ export function BeautifulMentionsPlugin(props: BeautifulMentionsPluginProps) {
       triggerFn={checkForMentionMatch}
       options={options}
       anchorClassName={menuAnchorClassName}
+      containerRef={containerRef}
       onClose={handleClose}
       menuRenderFn={(
         anchorElementRef,

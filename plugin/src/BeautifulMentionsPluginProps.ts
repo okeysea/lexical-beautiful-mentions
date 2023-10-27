@@ -96,6 +96,8 @@ interface BeautifulMentionsProps {
    * The class name to apply to the menu component root element.
    */
   menuAnchorClassName?: string;
+
+  containerRef?: React.RefObject<HTMLElement>;
   /**
    * At most, the specified number of menu items will be rendered.
    * If a map is provided, individual limits can be specified for each

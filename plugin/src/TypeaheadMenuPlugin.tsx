@@ -88,6 +88,7 @@ export type TypeaheadMenuPluginProps<TOption extends MenuOption> = {
   onOpen?: (resolution: MenuResolution) => void;
   onClose?: () => void;
   anchorClassName?: string;
+  containerRef?: React.RefObject<HTMLElement>;
 };
 
 export function TypeaheadMenuPlugin<TOption extends MenuOption>({
@@ -100,6 +101,7 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>({
   menuRenderFn,
   triggerFn,
   anchorClassName,
+  containerRef,
 }: TypeaheadMenuPluginProps<TOption>): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
   const [resolution, setResolution] = useState<MenuResolution | null>(null);
@@ -109,6 +111,7 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>({
     setResolution,
     className: anchorClassName,
     menuVisible,
+    containerRef,
   });
 
   const closeTypeahead = useCallback(() => {
